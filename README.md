@@ -1,2 +1,2 @@
 # SWE-Project
-Project for Intro to Software Engineering course (CSAI 203)
+Course Registration Project for Intro to Software Engineering course (CSAI 203)
