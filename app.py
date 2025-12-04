@@ -1,7 +1,6 @@
 from flask import Flask, g
 import sqlite3
 from config import DATABASE_PATH
-from controllers.user_controller import user_bp
 
 def get_db():
     if "db" not in g:
@@ -17,8 +16,6 @@ def close_db(arg=None):
 app = Flask(__name__)
 
 app.teardown_appcontext(close_db)
-
-app.register_blueprint(user_bp)
 
 @app.route("/")
 def home():
