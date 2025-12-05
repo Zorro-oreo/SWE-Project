@@ -1,6 +1,7 @@
 from flask import Flask, g
 import sqlite3
 from config import DATABASE_PATH
+import os
 
 def get_db():
     if "db" not in g:
