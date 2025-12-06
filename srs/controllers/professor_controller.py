@@ -16,7 +16,7 @@ def get_students_in_course(p_id, c_id):
     )
 
 def assign_grade():
-    professor_id = session.get('professor_id')
+    professor_id = session.get('userID')
     if not professor_id:
         return "Not logged in"
     
