@@ -26,13 +26,27 @@ class Professor:
         db = sqlite3.connect('database.db')
         cursor = db.cursor()
         
-        cursor.execute('''
-            UPDATE Registered_In 
-            SET grade = ? 
-            WHERE stuID = ? AND coID = ?
-        ''', (grade, student_id, course_id))
+        cursor.execute('SELECT cID FROM Course WHERE cID = ? AND PrID = ?', (course_id, self.pID))
+        if not cursor.fetchone():
+            db.close()
+            return "You don't teach this course"
         
+        cursor.execute('UPDATE Registered_In SET grade = ? WHERE stuID = ? AND coID = ?', (grade, student_id, course_id))
         db.commit()
         db.close()
+        return "Grade assigned"
+    
+    def get_students_in_course(self, course_id):
+        import sqlite3
+        db = sqlite3.connect('database.db')
+        cursor = db.cursor()
         
-        return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
+        cursor.execute('SELECT cID FROM Course WHERE cID = ? AND PrID = ?', (course_id, self.pID))
+        if not cursor.fetchone():
+            db.close()
+            return []
+        
+        cursor.execute('SELECT s.stID, s.sname FROM Student s JOIN Registered_In r ON s.stID = r.stuID WHERE r.coID = ?', (course_id,))
+        students = cursor.fetchall()
+        db.close()
+        return students
