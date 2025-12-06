@@ -56,9 +56,36 @@ def student_login():
     else:
         return "Credentials incorrect."
     
+@app.route("/ProfessorLogin.html")
+def professorlogin():
+    return render_template("ProfessorLogin.html")
+
 @app.route("/StudentHome")
 def sHome():
     return render_template("StudentHome.html", username = session["username"])
+
+@app.route("/Plogin", methods=["POST"])
+def professor_login():
+    id = request.form["id"]
+    password = request.form["password"]
+
+    db = get_db()
+    
+    profData = db.execute("""SELECT pname FROM Professor WHERE pID = ? AND pass = ?""", (id, password)).fetchone()
+
+    if (profData):
+
+        session["username"] = profData['pname']
+        session["type"] = "Professor"
+        session["userID"] = id
+
+        return redirect("/ProfessorHome")
+    else:
+        return "Credentials incorrect."
+
+@app.route("/ProfessorHome")
+def pHome():
+    return render_template("ProfessorHome.html", username = session["username"])
 
 if __name__ == "__main__":
     app.run(debug=True)
