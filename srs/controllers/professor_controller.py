@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, session
-from professor import Professor
+from flask import Blueprint, render_template, session, request
+from models.professor import Professor
 
 professor_bp = Blueprint("professor", _name_, url_prefix="/professor")
 

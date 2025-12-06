@@ -1,10 +1,10 @@
-from flask import Flask, render_template, session, request, flash, redirect
+from flask import Flask, render_template, session, request, flash, redirect, Blueprint
 from models.student import Student
 import sqlite3
 
-app = Flask(__name__, template_folder='../templates')
+student_bp = Blueprint('student', __name__)
 
-@app.route('/view_grades')
+@student_bp.route('/view_grades')
 def view_grades():
     sgrades = [
         {'course': 'Mathematics', 'grade': 'A'},
@@ -13,7 +13,12 @@ def view_grades():
     ]
     return render_template('view_grades.html', grades=sgrades)
 
-@app.route('/register_course')
+@student_bp.route('/course_reg')
+def course_reg():
+
+    return render_template("register_course.html")
+
+@student_bp.route('/register_course', methods=['POST'])
 def register_course():
 
     course_id = request.form.get("course_id")
@@ -29,6 +34,3 @@ def register_course():
         flash(f"Error: {str(e)}.")
 
     return redirect("/StudentHome")
-
-if __name__ == '__main__':
-    app.run(debug=True)

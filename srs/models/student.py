@@ -1,4 +1,4 @@
-from app import get_db
+from db import get_db
 
 class Student:
     def __init__(self, sID: str, sname: str, password: str):
