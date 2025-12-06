@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, request
 from models.professor import Professor
 
-professor_bp = Blueprint("professor", _name_, url_prefix="/professor")
+professor_bp = Blueprint("professor", __name__, url_prefix="/professor")
 
 @professor_bp.route("/courses/<c_id>/students")
 def get_students_in_course(c_id):
