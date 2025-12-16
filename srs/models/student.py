@@ -2,7 +2,7 @@ class Student:
     def __init__(self, sID: str, sname: str, password: str):
         self.sID = sID
         self.sname = sname
-        self.password = password
+        self.password = password      
 
     def calcGPA(self, courseGrades): #Assuming all courses are 3 credit
 

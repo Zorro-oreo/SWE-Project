@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, session
 from config import DATABASE_PATH
 from controllers.student_controller import student_bp
 from controllers.professor_controller import professor_bp
+from repositories.studentRepo import studentRepo
+from repositories.professorRepo import professorRepo
+from repositories.adminRepo import adminRepo
 from db import get_db, close_db
 
 def init_db():
@@ -42,7 +45,7 @@ def student_login():
 
     db = get_db()
     
-    studentData = db.execute("""SELECT sname FROM Student WHERE stID = ? AND pass = ?""", (id, password)).fetchone()
+    studentData = studentRepo(db, id).getLogin(id, password)
 
     if (studentData):
 
@@ -69,7 +72,7 @@ def professor_login():
 
     db = get_db()
     
-    profData = db.execute("""SELECT pname FROM Professor WHERE pID = ? AND pass = ?""", (id, password)).fetchone()
+    profData = professorRepo(db, id).getLogin(id, password)
 
     if (profData):
 
@@ -84,6 +87,33 @@ def professor_login():
 @app.route("/ProfessorHome")
 def pHome():
     return render_template("ProfessorHome.html", username = session["username"])
+
+@app.route("/AdminLogin.html")
+def adminlogin():
+    return render_template("AdminLogin.html")
+
+@app.route("/Alogin", methods=["POST"])
+def admin_login():
+    id = request.form["id"]
+    password = request.form["password"]
+
+    db = get_db()
+    
+    adminData = adminRepo(db, id).getLogin(id, password)
+
+    if (adminData):
+
+        session["username"] = adminData['aname']
+        session["type"] = "Admin"
+        session["userID"] = id
+
+        return redirect("/AdminHome")
+    else:
+        return "Credentials incorrect."
+    
+@app.route("/AdminHome")
+def ahome():
+    return render_template("AdminHome.html", username = session["username"])
 
 if __name__ == "__main__":
     app.run(debug=True)

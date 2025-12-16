@@ -33,3 +33,7 @@ class professorRepo:
         self.db.close()
         
         return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
+    
+    def getLogin(self, id, password):
+
+        return self.db.execute("""SELECT pname FROM Professor WHERE pID = ? AND pass = ?""", (id, password)).fetchone()
