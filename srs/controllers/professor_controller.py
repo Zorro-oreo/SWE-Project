@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, request
 from models.professor import Professor
+from repositories.professorRepo import professorRepo
 
 professor_bp = Blueprint("professor", __name__, url_prefix="/professor")
 
@@ -8,7 +9,7 @@ def get_students_in_course(c_id):
     p_id = session["userID"]
     p_name = session.get("pname", "")
     prof = Professor(pID=p_id, pname=p_name, password="")
-    students = prof.get_students_in_course(c_id)
+    students = professorRepo.get_students_in_course(c_id)
     return render_template(
         "professor_students.html",
         professor=prof,
@@ -25,7 +26,6 @@ def assign_grade():
     course_id = request.form.get("course_id")
     grade = request.form.get("grade")
     
-    professor = Professor(pID=professor_id, pname="", password="")
-    result = professor.assign_grade(student_id, course_id, grade)
+    result = professorRepo.assign_grade(student_id, course_id, grade)
 
     return result
