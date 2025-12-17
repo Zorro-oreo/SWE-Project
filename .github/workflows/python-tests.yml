@@ -1,4 +1,5 @@
 name: Run Flask Tests
+
 on:
   push:
     branches: ["*"]
