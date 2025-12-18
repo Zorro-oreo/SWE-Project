@@ -4,9 +4,11 @@ class adminRepo:
         self.db = db_conn
         self.pID = adminID
 
-    def getLogin(self, id, password):
-
-        return self.db.execute("""SELECT aname FROM Admin WHERE aID = ? AND pass = ?""", (id, password)).fetchone()
+    def getLogin(self, id, password=None):
+        if password:
+            return self.db.execute("""SELECT aID, aname, pass FROM Admin WHERE aID = ? AND pass = ?""", (id, password)).fetchone()
+        else:
+            return self.db.execute("""SELECT aID, aname, pass FROM Admin WHERE aID = ?""", (id,)).fetchone()
     
     def add_student(self, s_id, name, password):
         try:

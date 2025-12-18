@@ -26,6 +26,8 @@ class studentRepo:
         grades = [{'course': row[0], 'grade': row[1]} for row in rows]
         return grades
     
-    def getLogin(self, id, password):
-
-        return self.db.execute("""SELECT sname FROM Student WHERE stID = ? AND pass = ?""", (id, password)).fetchone()
+    def getLogin(self, id, password=None):
+        if password:
+            return self.db.execute("""SELECT stID, sname, pass FROM Student WHERE stID = ? AND pass = ?""", (id, password)).fetchone()
+        else:
+            return self.db.execute("""SELECT stID, sname, pass FROM Student WHERE stID = ?""", (id,)).fetchone()
