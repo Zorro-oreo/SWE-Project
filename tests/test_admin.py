@@ -1,16 +1,16 @@
 import pytest
 from unittest.mock import MagicMock, patch
 
+@patch("srs.controllers.admin_controller.current_user")
 @patch("srs.controllers.admin_controller.adminRepo")
-def test_admin_add_student(mock_repo_class, client):
+def test_admin_add_student(mock_repo_class, mock_current_user, client):
     
     mock_instance = MagicMock()
     mock_repo_class.return_value = mock_instance
     mock_instance.add_student.return_value = "Successfully added Ahmed"
 
-    with client.session_transaction() as sess:
-        sess['userID'] = 1
-        sess['type'] = 'Admin'
+    mock_current_user.id = "A01"
+    mock_current_user.is_authenticated = True
 
     response = client.post("/AddUser", data={
         "usertype": "Student",
@@ -21,16 +21,16 @@ def test_admin_add_student(mock_repo_class, client):
 
     assert response.status_code == 200
 
+@patch("srs.controllers.admin_controller.current_user")
 @patch("srs.controllers.admin_controller.adminRepo")
-def test_admin_add_prof(mock_repo_class, client):
+def test_admin_add_prof(mock_repo_class, mock_current_user, client):
     
     mock_instance = MagicMock()
     mock_repo_class.return_value = mock_instance
     mock_instance.add_prof.return_value = "Successfully added Mohammed"
 
-    with client.session_transaction() as sess:
-        sess['userID'] = 1
-        sess['type'] = 'Admin'
+    mock_current_user.id = "A01"
+    mock_current_user.is_authenticated = True
 
     response = client.post("/AddUser", data={
         "usertype": "Professor",
@@ -41,16 +41,16 @@ def test_admin_add_prof(mock_repo_class, client):
 
     assert response.status_code == 200
 
+@patch("srs.controllers.admin_controller.current_user")
 @patch("srs.controllers.admin_controller.adminRepo")
-def test_admin_add_admin(mock_repo_class, client):
+def test_admin_add_admin(mock_repo_class, mock_current_user, client):
     
     mock_instance = MagicMock()
     mock_repo_class.return_value = mock_instance
     mock_instance.add_admin.return_value = "Successfully added George"
 
-    with client.session_transaction() as sess:
-        sess['userID'] = 1
-        sess['type'] = 'Admin'
+    mock_current_user.id = "A01"
+    mock_current_user.is_authenticated = True
 
     response = client.post("/AddUser", data={
         "usertype": "Admin",

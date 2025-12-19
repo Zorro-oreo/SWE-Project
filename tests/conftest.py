@@ -11,6 +11,7 @@ from srs.app import app
 @pytest.fixture
 def app_fixture():
     app.config["TESTING"] = True
+    app.config["LOGIN_DISABLED"] = True
     app.config["SECRET_KEY"] = "test_secret"
     yield app
 
