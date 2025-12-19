@@ -27,7 +27,6 @@ class Student(UserMixin):
             'D': 1.0,
             'F': 0.0
         }
-
         for record in grades:
             grade = record['grade']
             if grade in grade_points:

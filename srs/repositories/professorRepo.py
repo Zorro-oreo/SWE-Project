@@ -46,3 +46,4 @@ class professorRepo:
         rows = cursor.fetchall()
         courses = [{'course_id': row[0], 'course_name': row[1]} for row in rows]
         return courses
+    

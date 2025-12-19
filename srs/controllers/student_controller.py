@@ -54,5 +54,3 @@ def register_course():
             <p>{str(e)}</p>
             <a href='/StudentHome'>Click here to go back</a>
         """
-
-
