@@ -23,7 +23,8 @@ INSERT INTO Course (cID, cname, capacity, semester, credits, PrID) VALUES
 
 INSERT INTO Registered_In (stuID, coID, grade) VALUES 
 ('S01', 'CS101', 'A'),
-('S01', 'MATH101', NULL),
+('S01', 'MATH101', 'C+'),
+('S01', 'CS102', 'B'),
 ('S02', 'CS101', 'B+'),
 ('S03', 'CS102', 'A-'),
 ('S04', 'MATH101', NULL);

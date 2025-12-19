@@ -4,19 +4,24 @@
 
     <head>
         <title>Login Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
+    <body>
+        <div class="container">
+            <h2>Student Login</h2>
 
-    <h2>Student Login</h2>
+            <form action="/Slogin" method="post" class="login-form">
 
-    <form action="/Slogin" method="post">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id" class="input-field" required><br><br>
 
-    <label for="id">ID:</label><br>
-    <input type="text" id="id" name="id" required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" class="input-field" required><br><br>
 
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
-
-    <button type="submit">Login</button>
+            <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+    </body>
 
 </form>
 

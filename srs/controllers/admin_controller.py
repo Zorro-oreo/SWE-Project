@@ -1,15 +1,18 @@
 from flask import Blueprint, render_template, request, session
+from flask_login import login_required, current_user
 from srs.repositories.adminRepo import adminRepo
 from srs.db import get_db
 
 admin_bp = Blueprint("admin", __name__)
 
 @admin_bp.route('/ManageUsers')
+@login_required
 def manage():
 
     return render_template("ManageUsers.html")
 
 @admin_bp.route("/AddUser", methods=["POST"])
+@login_required
 def addUser():
 
     type = request.form["usertype"]
@@ -18,7 +21,7 @@ def addUser():
     password = request.form["password"]
     
     db = get_db()
-    admin_id = session.get('userID')
+    admin_id = current_user.id
 
     status = ""
 

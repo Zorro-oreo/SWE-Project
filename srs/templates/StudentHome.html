@@ -4,19 +4,31 @@
 
     <head>
         <title>Student Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-
-    <p>Where would you like to go, {{username}}</p>
-
-    <a href="course_reg">
-        <button>Course registration</button>
-    </a>
-    <a href="view_grades">
-        <button>View Grades</button>
-    </a>
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
+    <body>
+        <div class="container">
+            <h1>Student Home</h1>
+            <hr>
+            <h3>Where would you like to go, {{username}}</h3>
+            <div>
+                <a href="view_grades">
+                    <button class="button">View Grades</button>
+                </a>
+            </div>
+            <div>
+                <a href="course_reg">
+                    <button class="button">Course registration</button>
+                </a>
+            </div>
+            <hr>
+            <div class="left-align">
+                <a href="/logout">
+                    <button class="button logout-btn">Logout</button>
+                </a>
+            </div>
+        </div>
+    </body>
 
 
 </html>

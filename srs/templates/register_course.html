@@ -4,17 +4,21 @@
 
     <head>
         <title>Register Course</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
+    <body>
+        <div class="container">
+            <form action="/register_course" method="post" class="login-form">
 
-    <form action="/register_course" method="post">
+            <label for="id">Enter course ID:</label>
+            <br>
+            <input type="text" id="id" name="course_id" class="input-field" required>
+            <br><br>
 
-    <label for="id">Enter course ID:</label>
-    <br>
-    <input type="text" id="id" name="course_id" required>
-    <br><br>
+            <button type="submit" class="button">Register</button>
 
-    <button type="submit">Register</button>
-
-</form>
+            </form>
+        </div>
+    </body>
 
 </html>

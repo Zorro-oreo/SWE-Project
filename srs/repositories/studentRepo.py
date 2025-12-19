@@ -18,12 +18,12 @@ class studentRepo:
 
     def get_grades(self):
 
-        sql = """SELECT c.cname, r.grade FROM Course c 
+        sql = """SELECT c.cname, r.grade, c.credits FROM Course c 
                 join Registered_In r ON c.cID = r.coID 
                 WHERE r.stuID = ?;"""
         cursor = self.db.execute(sql, (self.sID,))
         rows = cursor.fetchall()
-        grades = [{'course': row[0], 'grade': row[1]} for row in rows]
+        grades = [{'course': row[0], 'grade': row[1], 'credits': row[2]} for row in rows]
         return grades
     
     def getLogin(self, id, password=None):

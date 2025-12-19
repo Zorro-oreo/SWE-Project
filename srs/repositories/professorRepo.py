@@ -39,3 +39,10 @@ class professorRepo:
             return self.db.execute("""SELECT pID, pname, pass FROM Professor WHERE pID = ? AND pass = ?""", (id, password)).fetchone()
         else:
             return self.db.execute("""SELECT pID, pname, pass FROM Professor WHERE pID = ?""", (id,)).fetchone()
+        
+    def get_courses(self):
+        sql = """SELECT cID, cname FROM Course WHERE PrID = ?;"""
+        cursor = self.db.execute(sql, (self.pID,))
+        rows = cursor.fetchall()
+        courses = [{'course_id': row[0], 'course_name': row[1]} for row in rows]
+        return courses

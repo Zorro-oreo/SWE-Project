@@ -1,6 +1,6 @@
-# import sys
-# import os
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from flask import Flask, render_template, request, redirect, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -143,7 +143,11 @@ def professor_login():
 def pHome():
     if not current_user.is_authenticated:
         return redirect("/")
-    return render_template("ProfessorHome.html", username = current_user.pname)
+    
+    db = get_db()
+    courses = professorRepo(db, current_user.pID).get_courses()
+
+    return render_template("ProfessorHome.html", username = current_user.pname, courses=courses)
 
 @app.route("/AdminLogin.html")
 def adminlogin():

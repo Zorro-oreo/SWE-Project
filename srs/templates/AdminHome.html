@@ -4,18 +4,39 @@
 
     <head>
         <title>Admin Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-
-    <p>Where would you like to go, {{username}}</p>
-
-    <a href="ManageUsers">
-
-        <button>Manage Users</button>
-
-    </a>
-
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
+    <body>
+        <div class="container">
+            <h1>Admin Home</h1>
+            <hr>
+            <h2>What would you like to do, {{username}}</h2>
+            <table class="table small-table">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="center-content">
+                       
+                            <div>
+                                <a href="ManageUsers">
+                                    <button class="button">Manage Users</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="left-align">
+                <a href="/logout">
+                    <button class="button logout-btn">Logout</button>
+                </a>
+            </div>
+        </div>
+    </body>
 
 </html>
