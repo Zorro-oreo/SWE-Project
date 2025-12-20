@@ -187,14 +187,19 @@ def addCourse():
     c_id = request.form["course_id"]
     cname = request.form["course_name"]
     capacity = request.form["capacity"]
+    semester = request.form["semester"]
+    credits = request.form["credits"]
     professor_id = request.form["professor_id"]
 
     db = get_db()
     admin_id = session.get('userID')
 
-    status = adminRepo(db, admin_id).add_course(c_id, cname, capacity, professor_id)
+    status = adminRepo(db, admin_id).add_course(c_id, cname, capacity, semester, credits, professor_id)
 
-    return render_template("ManageCourses.html", message=status)
+    courses = adminRepo(db, admin_id).get_all_courses()
+
+    return render_template("ManageCourses.html", courses=courses, message=status)
+
 
 
 @admin_bp.route("/RemoveCourse", methods=["POST"])
@@ -205,5 +210,6 @@ def removeCourse():
     admin_id = session.get('userID')
 
     status = adminRepo(db, admin_id).remove_course(c_id)
+    courses = adminRepo(db, admin_id).get_all_courses()
 
-    return render_template("ManageCourses.html", message=status)
+    return render_template("ManageCourses.html", courses=courses, message=status)
