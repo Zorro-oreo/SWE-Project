@@ -13,7 +13,8 @@ class professorRepo:
                  WHERE c.cID = ? AND c.PrID = ?;
               """
 
-        rows = self.db.execute(sql, (course_id, self.pID)).fetchall()
+        cursor = self.db.execute(sql, (course_id, self.pID))
+        rows = cursor.fetchall()
 
         students = [dict(row) for row in rows]
 

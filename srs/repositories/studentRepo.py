@@ -16,8 +16,23 @@ class studentRepo:
         self.db.commit()
 
     def getAvailableCourses(self):
+        return self.db.execute("""
+            SELECT c.cID, c.cname, c.credits, p.pname 
+            FROM Course c 
+            JOIN Professor p ON c.PrID = p.pID
+        """).fetchall()
 
-        return self.db.execute("""SELECT cID, cname FROM Course""").fetchall()
+    def get_registered_courses(self):
+        sql = """
+            SELECT c.cID, c.cname, c.credits, p.pname
+            FROM Course c
+            JOIN Registered_In r ON c.cID = r.coID
+            JOIN Professor p ON c.PrID = p.pID
+            WHERE r.stuID = ?
+        """
+        cursor = self.db.execute(sql, (self.sID,))
+        rows = cursor.fetchall()
+        return [{'cID': row[0], 'cName': row[1], 'credits': row[2], 'pname': row[3]} for row in rows]
 
     def get_grades(self):
 

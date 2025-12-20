@@ -26,7 +26,7 @@ def view_grades():
 @login_required
 def course_reg():
 
-    student_id = session["userID"]
+    student_id = current_user.sID
 
     db = get_db()
     
@@ -62,8 +62,9 @@ def register_course():
         """
 
 @student_bp.route('/drop_course', methods=['GET', 'POST'])
+@login_required
 def drop_course():
-    student_id = session.get('userID')
+    student_id = current_user.sID
     if not student_id:
         return "Not logged in"
 
@@ -84,3 +85,16 @@ def drop_course():
             """
     else:
         return render_template("drop_course.html")
+    
+@student_bp.route('/StudentRegisteredCourses')
+@login_required
+def student_registered_courses():
+    student_id = current_user.sID
+    if not student_id:
+        return "Not logged in"
+
+    db = get_db()
+    
+    registered_courses = studentRepo(db, student_id).get_registered_courses()
+
+    return render_template("StudentRegisteredCourses.html", registered_courses=registered_courses)

@@ -9,37 +9,45 @@
     <body>
         <div class="container">
             <h2>View and Manage Users</h2>
+            <hr>
 
-    <h2>Add New User</h2>
+            <h3>Add New User</h3>
 
-    <form action="{{ url_for('admin.addUser') }}" method="post">
+            <form action="{{ url_for('admin.addUser') }}" method="post" class="login-form">
 
-            <label for="id">ID:</label><br>
-            <input type="text" id="id" name="id" class="input-field" required><br><br>
+                <label for="id">ID:</label><br>
+                <input type="text" id="id" name="id" class="input-field" required>
 
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" class="input-field" required><br><br>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" class="input-field" required>
 
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" class="input-field" required><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" class="input-field" required>
+                <div class="centered">
+                    <button type="submit" class="button">Add user</button>
+                </div>
+            
 
-            <button type="submit" class="button">Add user</button>
-
-            <h3>{{message}}</h3>
+                <h3>{{message}}</h3>
             </form>
         </div>
     </body>
 
-    </form>
-
-    <h3>{{message}}</h3>
-
-    <br><br>
+    <hr>
+    <br>
     <h2>Manage Existing Accounts</h2>
-    <a href="{{ url_for('admin.manage_accounts') }}">Manage Student and Professor Accounts</a>
-
-    <br><br>
+    <div class ="centered">
+        <a href="{{ url_for('admin.manage_accounts') }}">
+            <button class="button">Manage Student and Professor Accounts</button>
+        </a>
+    </div>
+    <hr>
+    <br>
     <h2>Course Management</h2>
-    <a href="{{ url_for('admin.manage_courses') }}">Manage Courses and Assign Professors</a>
+    <div class ="centered">
+        <a href="{{ url_for('admin.manage_courses') }}">
+            <button class="button">Manage Courses and Assign Professors</button>
+        </a>
+    </div>
 
 </html>
