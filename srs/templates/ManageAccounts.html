@@ -2,16 +2,17 @@
 <html>
 <head>
     <title>Manage Accounts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Manage Student and Professor Accounts</h1>
-    
+    <hr>
     {% if message %}
     <p>{{ message }}</p>
     {% endif %}
     
     <h2>Student Accounts</h2>
-    <table border="1">
+    <table border="1" class="table">
         <tr>
             <th>Student ID</th>
             <th>Name</th>
@@ -22,17 +23,21 @@
             <td>{{ student.stID }}</td>
             <td>{{ student.sname }}</td>
             <td>
-                <a href="{{ url_for('admin.edit_student', student_id=student.stID) }}">Edit</a>
-                <form action="{{ url_for('admin.delete_student', student_id=student.stID) }}" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
+                <div class="centered">
+                    <a href="{{ url_for('admin.edit_student', student_id=student.stID) }}">
+                        <button class="button">Edit</button></a>
+
+                        <form action="{{ url_for('admin.delete_student', student_id=student.stID) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="button">Delete</button>
+                        </form>
+                </div>
             </td>
         </tr>
         {% endfor %}
     </table>
-    
+    <hr>
     <h2>Professor Accounts</h2>
-    <table border="1">
+    <table border="1" class="table">
         <tr>
             <th>Professor ID</th>
             <th>Name</th>
@@ -43,16 +48,23 @@
             <td>{{ professor.pID }}</td>
             <td>{{ professor.pname }}</td>
             <td>
-                <a href="{{ url_for('admin.edit_professor', professor_id=professor.pID) }}">Edit</a>
-                <form action="{{ url_for('admin.delete_professor', professor_id=professor.pID) }}" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
+                <div class="centered">
+                    <a href="{{ url_for('admin.edit_professor', professor_id=professor.pID) }}">
+                        <button class="button">Edit</button></a>
+                    <form action="{{ url_for('admin.delete_professor', professor_id=professor.pID) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="button">Delete</button>
+                    </form>
+                </div>
             </td>
         </tr>
         {% endfor %}
     </table>
     
-    <br>
-    <a href="{{ url_for('admin.manage') }}">Back to User Management</a>
+    <br><br>
+    <div>
+        <a href="{{ url_for('admin.manage') }}">
+            <button class="button">Back</button>
+        </a>
+    </div>
 </body>
 </html>

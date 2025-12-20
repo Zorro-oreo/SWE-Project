@@ -11,6 +11,15 @@ def manage():
 
     return render_template("ManageUsers.html")
 
+@admin_bp.route('/AddRemoveCourses')
+@login_required
+def add_remove_courses():
+    db = get_db()
+    admin_id = session.get('userID')
+    
+    courses = adminRepo(db, admin_id).get_all_courses()
+    return render_template("AddRemoveCourses.html", courses=courses)
+
 @admin_bp.route("/AddUser", methods=["POST"])
 @login_required
 def addUser():
@@ -198,7 +207,7 @@ def addCourse():
 
     courses = adminRepo(db, admin_id).get_all_courses()
 
-    return render_template("ManageCourses.html", courses=courses, message=status)
+    return render_template("AddRemoveCourses.html", courses=courses, message=status)
 
 
 
@@ -212,4 +221,4 @@ def removeCourse():
     status = adminRepo(db, admin_id).remove_course(c_id)
     courses = adminRepo(db, admin_id).get_all_courses()
 
-    return render_template("ManageCourses.html", courses=courses, message=status)
+    return render_template("AddRemoveCourses.html", courses=courses, message=status)

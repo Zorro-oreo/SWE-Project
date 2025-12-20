@@ -13,25 +13,27 @@
 
             <h3>Add New User</h3>
 
-            <form action="{{ url_for('admin.addUser') }}" method="post">
+            <form action="{{ url_for('admin.addUser') }}" method="post" >
 
                 <label for="type">User Type:</label><br>
                 <select name="usertype" id="usertype">
-                     <option value="Professor">Professor</option>
-                     <option value="Student">Student</option>
-                     <option value="Admin">Admin</option>
-                 </select><br>
-
-                <label for="id">ID:</label><br>
-                <input type="text" id="id" name="id" required><br><br>
-
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name" required><br><br>
-
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" required><br><br>
-
-                <button type="submit">Add user</button>
+                    <option value="Professor">Professor</option>
+                    <option value="Student">Student</option>
+                    <option value="Admin">Admin</option>
+                </select><br>
+                <div class="login-form">
+                    <label for="id">ID:</label><br>
+                    <input type="text" id="id" name="id" required class="input-field"><br><br>
+    
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required class="input-field"><br><br>
+ 
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required class="input-field"><br><br>
+                    <div class ="centered">
+                        <button type="submit" class="button">Add user</button>
+                    </div>
+                </div>
 
                 <h3>{{message}}</h3>
 
@@ -49,5 +51,17 @@
     </div>
     <hr>
     <br>
+    <h2>Course Management</h2>
+    <div class ="centered">
+        <a href="{{ url_for('admin.manage_courses') }}">
+            <button class="button">Manage Courses and Assign Professors</button>
+        </a>
+    </div>
+    <br>
+    <div>
+        <form action="/AdminHome" method="get">
+            <button type="submit" class="button">Back</button>
+        </form>
+    </div>
 
 </html>

@@ -109,3 +109,22 @@ hr {
     background-color: #bbdad8;
     margin: 20px 0;
 }
+
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+select:focus {
+    border-color: #31bb4b;
+    outline: none;
+}
+select.input-field {
+    width: 50%;
+
+}
