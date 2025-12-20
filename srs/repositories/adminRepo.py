@@ -113,16 +113,17 @@ class adminRepo:
         except Exception as e:
             return f"Error: {e}"
     
-    def add_course(self, c_id, cname, capacity, professor_id):
+    def add_course(self, c_id, cname, capacity, semester, credits, professor_id):
         try:
             self.db.execute(
-                "INSERT INTO Course (cID, cname, capacity, PrID) VALUES (?, ?, ?, ?)",
-                (c_id, cname, capacity, professor_id),
+                "INSERT INTO Course (cID, cname, capacity, semester, credits, PrID) VALUES (?, ?, ?, ?, ?, ?)",
+                (c_id, cname, capacity, semester, credits, professor_id),
             )
             self.db.commit()
             return "Course added successfully."
         except Exception as e:
             return f"Error: {e}"
+
     
     def remove_course(self, c_id):
         try:
