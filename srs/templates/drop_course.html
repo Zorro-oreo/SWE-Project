@@ -2,20 +2,24 @@
 <html>
 <head>
     <title>Drop Course</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
     <h2>Drop Course</h2>
-
-    <form action="/drop_course" method="post">
+    <hr>
+    <br>
+    <form action="/drop_course" method="post" class = "login-form">
         <label for="course_id">Enter course ID to drop:</label><br>
-        <input type="text" id="course_id" name="course_id" required><br><br>
-        <button type="submit">Drop Course</button>
+        <input type="text" id="course_id" name="course_id" class="input-field" required>
+        <button type="submit" class="button">Drop Course</button>
     </form>
-
-    <p>
-        <a href="/StudentHome">Back to Student Home</a>
-    </p>
+    <br>
+    <div>
+        <a href="/StudentHome">
+            <button class="button left-align">Back</button>
+        </a>
+    </div>
 
 </body>
 </html>
