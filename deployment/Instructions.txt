@@ -1,0 +1,8 @@
+MUST HAVE 'Docker' INSTALLED
+
+Run these commands in the terminal:
+
+1- docker build -t swe-project
+2- docker run -p 5000:5000 swe-project
+
+Then open the link 'http://localhost:5000'
