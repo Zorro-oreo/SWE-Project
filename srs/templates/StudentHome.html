@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Student Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Student Home</h1>
+            <hr>
+            <h3>Where would you like to go, {{username}}</h3>
+            <div>
+                <a href="view_grades">
+                    <button class="button">View Grades</button>
+                </a>
+            </div>
+            <div>
+                <a href="course_reg">
+                    <button class="button">Course registration</button>
+                </a>
+            </div>
+            <div>
+                <a href="drop_course">
+                    <button class="button">Drop Course</button>
+                </a>
+            </div>
+            <hr>
+            <div class="left-align">
+                <a href="/logout">
+                    <button class="button logout-btn">Logout</button>
+                </a>
+            </div>
+        </div>
+    </body>
+
+
+</html>

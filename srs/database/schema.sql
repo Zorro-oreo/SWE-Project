@@ -23,6 +23,8 @@ CREATE TABLE Course(
     cID TEXT,
     cname TEXT NOT NULL,
     capacity int NOT NULL,
+    semester TEXT NOT NULL,
+    credits int NOT NULL,
     PrID TEXT,
     PRIMARY KEY(cID),
     FOREIGN KEY(PrID) REFERENCES Professor(pID)

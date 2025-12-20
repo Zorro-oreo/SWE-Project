@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registered Students</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Registered Students</h1>
+
+        <h2>
+            Course: {{ course_id }}<br>
+            Professor ID: {{ professor.pID }}
+            {% if professor.pname %}
+                ({{ professor.pname }})
+            {% endif %}
+        </h2>
+
+        {% if students %}
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.stID }}</td>
+                    <td>{{ student.sname }}</td>
+                    <td>
+                        {% if student.grade %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No students are registered in this course.</p>
+    {% endif %}
+<div>
+    <form action="/ProfessorHome" method="get">
+        <button type="submit" class="button">Back to Professor Home</button>
+    </form>
+</div>
+
+</body>
+</html>
+

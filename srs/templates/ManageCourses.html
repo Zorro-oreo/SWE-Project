@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Courses</title>
+</head>
+<body>
+    <h1>Manage Courses - Assign Professors</h1>
+    
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    
+    <table border="1">
+        <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Current Professor</th>
+            <th>Professor Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.cID }}</td>
+            <td>{{ course.cname }}</td>
+            <td>{{ course.PrID if course.PrID else 'None' }}</td>
+            <td>{{ course.pname if course.pname else 'Not assigned' }}</td>
+            <td>
+                <a href="{{ url_for('admin.assign_professor', course_id=course.cID) }}">Assign/Change Professor</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <br>
+    <a href="{{ url_for('admin.manage') }}">Back to User Management</a>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Grade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Assign Grade</h1>
+        <form action="/professor/assign_grade" method="POST">
+            
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" class="input-field" required>
+            
+            <label for="course_id">Course ID:</label>
+            <input type="text" id="course_id" name="course_id" class="input-field" required>
+            
+            <label for="grade">Grade:</label>
+            <select id="grade" name="grade" class="input-field" required>
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+
+                <option value="F">F</option>
+            </select>
+            
+            <button type="submit" class="button">Assign Grade</button>
+        </form>
+    </div>
+</body>
+</html>
