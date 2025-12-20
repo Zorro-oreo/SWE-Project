@@ -30,7 +30,7 @@ class professorRepo:
         ''', (grade, student_id, course_id))
         
         self.db.commit()
-        self.db.close()
+        
         
         return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
     
