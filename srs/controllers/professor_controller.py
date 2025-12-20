@@ -46,3 +46,14 @@ def view_courses():
     repo = professorRepo(db, professor_id)
     courses = repo.get_courses()
     return render_template("ProfessorHome.html", courses=courses)
+
+@professor_bp.route('/remove_student/<student_id>/<course_id>')
+@login_required
+def remove_student(student_id, course_id):
+    professor_id = current_user.pID
+    
+    db = get_db()
+    repo = professorRepo(db, professor_id)
+    result = repo.RemoveStudent(student_id, course_id)
+    
+    return result
