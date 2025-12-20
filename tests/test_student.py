@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
-@patch("srs.controllers.student_controller.current_user")
 @patch("srs.controllers.student_controller.studentRepo")
+@patch("srs.controllers.student_controller.current_user")
 def test_student_view_grades(mock_repo_class, mock_current_user, client):
    
     mock_instance = MagicMock()
@@ -17,12 +17,11 @@ def test_student_view_grades(mock_repo_class, mock_current_user, client):
     mock_current_user.get_GPA.return_value = 3.5
  
     response = client.get("/view_grades")
-
     
     assert response.status_code == 200
 
-@patch("srs.controllers.student_controller.current_user")
 @patch("srs.controllers.student_controller.studentRepo")
+@patch("srs.controllers.student_controller.current_user")
 def test_student_register_course_success(mock_repo_class, mock_current_user, client):
 
     mock_instance = MagicMock()

@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock, patch
 
-@patch("srs.controllers.admin_controller.current_user")
 @patch("srs.controllers.admin_controller.adminRepo")
+@patch("srs.controllers.admin_controller.current_user")
 def test_admin_add_student(mock_repo_class, mock_current_user, client):
     
     mock_instance = MagicMock()
@@ -21,8 +21,8 @@ def test_admin_add_student(mock_repo_class, mock_current_user, client):
 
     assert response.status_code == 200
 
-@patch("srs.controllers.admin_controller.current_user")
 @patch("srs.controllers.admin_controller.adminRepo")
+@patch("srs.controllers.admin_controller.current_user")
 def test_admin_add_prof(mock_repo_class, mock_current_user, client):
     
     mock_instance = MagicMock()
