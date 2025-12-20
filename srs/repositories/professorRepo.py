@@ -13,7 +13,8 @@ class professorRepo:
                  WHERE c.cID = ? AND c.PrID = ?;
               """
 
-        rows = self.db.execute(sql, (course_id, self.pID)).fetchall()
+        cursor = self.db.execute(sql, (course_id, self.pID))
+        rows = cursor.fetchall()
 
         students = [dict(row) for row in rows]
 
@@ -30,7 +31,7 @@ class professorRepo:
         ''', (grade, student_id, course_id))
         
         self.db.commit()
-        
+        self.db.close()
         
         return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
     
