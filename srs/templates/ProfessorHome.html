@@ -25,31 +25,25 @@
                 </thead>
                 <tbody>
                     {% for course in courses %}
-                    <tr>
-                        <td>{{ course.course_id }}</td>
-                        <td>{{ course.course_name }}</td>
-                        <td class="center-content">
-                            <div>
-                                <a href="{{ url_for('professor.get_students_in_course', c_id=course.course_id) }}">
-                                    <button class="button">View Registered Students</button>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-    {% else %}
-        <p>No courses found for this professor.</p>
-    {% endif %}
+<tr>
+    <td>{{ course.course_id }}</td>
+    <td>{{ course.course_name }}</td>
+    <td class="center-content">
+        <div>
+            <form action="{{ url_for('professor.get_students_in_course', c_id=course.course_id) }}" method="get">
+                <button type="submit" class="button">View Registered Students</button>
+            </form>
+        </div>
+    </td>
+</tr>
+{% endfor %}
 
-    <hr>
+<div class="left-align">
+    <form action="/logout" method="get">
+        <button type="submit" class="button logout-btn">Logout</button>
+    </form>
+</div>
 
-    <div class="left-align">
-        <a href="/logout">
-            <button class="button logout-btn">Logout</button>
-        </a>
-    </div>
 </body>
 </html>
 
