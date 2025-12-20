@@ -21,16 +21,13 @@ class professorRepo:
     
     def assign_grade(self, student_id, course_id, grade):
 
-        cursor = self.db.cursor()
-        
-        cursor.execute('''
+        self.db.execute('''
             UPDATE Registered_In 
             SET grade = ? 
             WHERE stuID = ? AND coID = ?
         ''', (grade, student_id, course_id))
         
         self.db.commit()
-        self.db.close()
         
         return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
     
