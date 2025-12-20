@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Register Course</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <form action="/register_course" method="post" class="login-form">
+
+            <label for="id">Enter course ID:</label>
+            <br>
+            <input type="text" id="id" name="course_id" class="input-field" required>
+            <br><br>
+
+            <button type="submit" class="button">Register</button>
+
+            </form>
+        </div>
+            <h3>Available Courses</h3>
+            <table border="1" cellpadding="10" cellspacing="0" class="table">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course[0] }}</td>
+                        <td>{{ course[1] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2">No courses available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

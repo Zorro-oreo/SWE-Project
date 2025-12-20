@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Welcome Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <h1>Welcome to Course Registration</h1>
+            </div>
+            <hr>
+            <br>
+
+            <h2>Would you like to log in as:</h2>
+            <div>
+                <a href="StudentLogin.html">
+                <button class="button">Student</button>
+                </a>
+            </div>
+            <div>
+                <a href="ProfessorLogin.html">
+                <button class="button">Professor</button>
+                </a>
+            </div>
+            <div>
+                <a href="AdminLogin.html">
+                <button class="button">Admin</button>
+                </a>
+            </div>
+        </div>
+    </body>
+
+</html>

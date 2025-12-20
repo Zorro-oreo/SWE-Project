@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Add / Remove Courses</title>
+    </head>
+
+    <h2>Add / Remove Courses</h2>
+
+    <p>A LIST OF AVAILABLE COURSES WITH (EDIT) AND (DELETE) BUTTONS NEXT TO EACH ONE</p>
+
+    <form action="/AddCourse" method="post">
+
+        <label for="course_id">Course ID:</label><br>
+        <input type="text" id="course_id" name="course_id" required><br><br>
+
+        <label for="course_name">Course Name:</label><br>
+        <input type="text" id="course_name" name="course_name" required><br><br>
+
+        <label for="capacity">Capacity:</label><br>
+        <input type="number" id="capacity" name="capacity" required><br><br>
+
+        <label for="professor_id">Professor ID:</label><br>
+        <input type="text" id="professor_id" name="professor_id"><br><br>
+
+        <button type="submit">Add Course</button>
+
+        <h3>{{message}}</h3>
+
+    </form>
+
+    <form action="/RemoveCourse" method="post">
+
+        <label for="course_id_remove">Course ID to remove:</label><br>
+        <input type="text" id="course_id_remove" name="course_id" required><br><br>
+
+        <button type="submit">Remove Course</button>
+
+    </form>
+
+</html>

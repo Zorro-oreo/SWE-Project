@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Professor Account</title>
+</head>
+<body>
+    <h1>Edit Professor Account</h1>
+    
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    
+    <form action="{{ url_for('admin.update_professor', professor_id=professor.pID) }}" method="POST">
+        <label>Professor ID: {{ professor.pID }}</label>
+        <br><br>
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ professor.pname }}" required>
+        <br><br>
+        <label>Password:</label>
+        <input type="password" name="password" placeholder="Leave blank to keep current">
+        <br><br>
+        <button type="submit">Update Professor</button>
+    </form>
+    
+    <br>
+    <a href="{{ url_for('admin.manage_accounts') }}">Back to Manage Accounts</a>
+</body>
+</html>

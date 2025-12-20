@@ -1,9 +1,14 @@
-from app import get_db
-class Professor:
-    def _init_(self, pID: str, pname: str, password: str):
+from flask_login import UserMixin
+from srs.db import get_db
+
+class Professor(UserMixin):
+    def __init__(self, pID: str, pname: str, password: str):
         self.pID = pID       
         self.pname = pname   
-        self.password = password  
+        self.password = password
+
+    def get_id(self):
+        return f"professor_{self.pID}"
 
     def get_students_in_course(self, course_id: str):
         db = get_db()

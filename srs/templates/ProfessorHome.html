@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Professor Home</h1>
+
+
+        <p>What would you like to do, {{username}}</p>
+
+        <hr>
+
+        <h2>My Courses</h2>
+        {% if courses %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.course_id }}</td>
+                        <td>{{ course.course_name }}</td>
+                        <td class="center-content">
+                            <div>
+                                <a href="{{ url_for('professor.get_students_in_course', c_id=course.course_id) }}">
+                                    <button class="button">View Registered Students</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    {% else %}
+        <p>No courses found for this professor.</p>
+    {% endif %}
+
+    <hr>
+
+    <div class="left-align">
+        <a href="/logout">
+            <button class="button logout-btn">Logout</button>
+        </a>
+    </div>
+</body>
+</html>
+

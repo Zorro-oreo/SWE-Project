@@ -2,81 +2,25 @@
 <html>
 <head>
     <title>Assign Grade</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: bold;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Assign Grade</h1>
         <form action="/professor/assign_grade" method="POST">
-            
             <div class="form-group">
                 <label for="student_id">Student ID:</label>
-                <input type="text" id="student_id" name="student_id" required>
+                <input type="text" id="student_id" name="student_id" class="input-field" required>
             </div>
             
             <div class="form-group">
                 <label for="course_id">Course ID:</label>
-                <input type="text" id="course_id" name="course_id" required>
+                <input type="text" id="course_id" name="course_id" class="input-field" required>
             </div>
             
             <div class="form-group">
                 <label for="grade">Grade:</label>
-                <select id="grade" name="grade" required>
+                <select id="grade" name="grade" class="input-field" required>
                     <option value="">Select Grade</option>
                     <option value="A">A</option>
                     <option value="A-">A-</option>
@@ -86,12 +30,11 @@
                     <option value="C+">C+</option>
                     <option value="C">C</option>
                     <option value="C-">C-</option>
-
                     <option value="F">F</option>
                 </select>
             </div>
             
-            <button type="submit">Assign Grade</button>
+            <button type="submit" class="button">Assign Grade</button>
         </form>
     </div>
 </body>
