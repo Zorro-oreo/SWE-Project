@@ -5,57 +5,59 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Registered Students</h1>
+        <div class="container">
+            <h1>Registered Students</h1>
 
-        <h2>
-            Course: {{ course_id }}<br>
-            Professor ID: {{ professor.pID }}
-            {% if professor.pname %}
-                ({{ professor.pname }})
-            {% endif %}
-        </h2>
+            <h2>
+                Course: {{ course_id }}<br>
+                Professor ID: {{ professor.pID }}
+                {% if professor.pname %}
+                    ({{ professor.pname }})
+                {% endif %}
+            </h2>
 
-        {% if students %}
-            <table class="table">
-            <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Student Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in students %}
-                <tr>
-                    <td>{{ student.stID }}</td>
-                    <td>{{ student.sname }}</td>
-                    <td class="center-content">
-                        <div>
-                            <a href="{{ url_for('professor.remove_student', student_id=student.stID, course_id=course_id) }} ">
-                                <button class="button">Remove</button>
-                            </a>
+            {% if students %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.stID }}</td>
+                            <td>{{ student.sname }}</td>
+                            <td class="center-content">
+                                <div>
+                                    <a href="{{ url_for('professor.remove_student', student_id=student.stID, course_id=course_id) }} ">
+                                        <button class="button">Remove</button>
+                                    </a>
                             
-                        </div>
-                    </td>
-                        {% if student.grade %}
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No students are registered in this course.</p>
-    {% endif %}
-<div>
-    <form action="/ProfessorHome" method="get">
-        <button type="submit" class="button">Back to Professor Home</button>
-    </form>
-</div>
+                                </div>
+                            </td>
+                                {% if student.grade %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No students are registered in this course.</p>
+            {% endif %}
+            <br>
+            <div class ="left-align">
+                <form action="/ProfessorHome" method="get">
+                    <button type="submit" class="button">Back</button>
+                </form>
+            </div>
+        </div>
 
-</body>
+    </body>
 </html>
 

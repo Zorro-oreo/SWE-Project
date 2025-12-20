@@ -2,17 +2,18 @@
 <html>
 <head>
     <title>Assign Professor to Course</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Assign Professor to Course</h1>
-    
+    <hr>
     <h2>Course Details</h2>
     <p><strong>Course ID:</strong> {{ course.cID }}</p>
     <p><strong>Course Name:</strong> {{ course.cname }}</p>
     <p><strong>Current Professor:</strong> {{ course.pname if course.pname else 'Not assigned' }} ({{ course.PrID if course.PrID else 'None' }})</p>
     
     <h2>Select New Professor</h2>
-    <form action="{{ url_for('admin.update_course_professor', course_id=course.cID) }}" method="POST">
+    <form action="{{ url_for('admin.update_course_professor', course_id=course.cID) }}" method="POST" class="centered">
         <label>Select Professor:</label>
         <select name="professor_id" required>
             <option value="">-- Select Professor --</option>
@@ -23,10 +24,16 @@
             {% endfor %}
         </select>
         <br><br>
-        <button type="submit">Assign Professor</button>
+        <div class="center-content">
+            <button type="submit" class="button">Assign Professor</button>
+        </div>
     </form>
     
     <br>
-    <a href="{{ url_for('admin.manage_courses') }}">Back to Manage Courses</a>
+    <div class="center-content">
+        <a href="{{ url_for('admin.manage_courses') }}">
+            <button class="button">Back</button>
+        </a>
+    </div>
 </body>
 </html>

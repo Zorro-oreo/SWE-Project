@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <h1>Register for a Course</h1>
+        <hr>
         <div class="container">
             <form action="/register_course" method="post" class="login-form">
 
@@ -19,6 +21,8 @@
 
             </form>
         </div>
+        <hr>
+        <div>
             <h3>Available Courses</h3>
             <table border="1" cellpadding="10" cellspacing="0" class="table">
                 <thead>
@@ -40,6 +44,12 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <br><br>
+        <div>
+            <form action="/StudentHome" method="get">
+                <button type="submit" class="button">Back</button>
+            </form>
         </div>
     </body>
 </html>
