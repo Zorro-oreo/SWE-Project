@@ -19,9 +19,12 @@ def get_students_in_course(c_id):
         students=repo.get_students_in_course(c_id)
     )
 
-@professor_bp.route('/assign_grade', methods=['POST'])
+@professor_bp.route('/assign_grade', methods=['GET', 'POST'])
 @login_required
 def assign_grade():
+    if request.method == 'GET':
+        return render_template('Grade.html')
+    
     professor_id = current_user.pID
     
     student_id = request.form.get("student_id")
