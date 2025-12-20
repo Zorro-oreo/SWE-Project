@@ -42,5 +42,4 @@ def view_courses():
     db = get_db()
     repo = professorRepo(db, professor_id)
     courses = repo.get_courses()
-
     return render_template("ProfessorHome.html", courses=courses)
