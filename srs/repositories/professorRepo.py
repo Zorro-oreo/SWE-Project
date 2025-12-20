@@ -45,3 +45,13 @@ class professorRepo:
         courses = [{'course_id': row[0], 'course_name': row[1]} for row in rows]
         return courses
     
+    def RemoveStudent(self, student_id, course_id):
+        self.db.execute('''
+            DELETE FROM Registered_In 
+            WHERE stuID = ? AND coID = ?
+        ''', (student_id, course_id))
+        
+        self.db.commit()
+        
+        return f"Student {student_id} has been removed from course {course_id}"
+    
