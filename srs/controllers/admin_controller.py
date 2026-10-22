@@ -1,9 +1,18 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, abort, current_app
 from flask_login import login_required, current_user
+from srs.models.admin import Admin
 from srs.repositories.adminRepo import adminRepo
 from srs.db import get_db
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
+
+@admin_bp.before_request
+@login_required
+def require_admin():
+    if current_app.config.get("LOGIN_DISABLED"):
+        return
+    if not isinstance(current_user, Admin):
+        abort(403)
 
 @admin_bp.route('/ManageUsers')
 @login_required
@@ -49,6 +58,7 @@ def addUser():
     return render_template("ManageUsers.html", message = status)
 
 @admin_bp.route('/ManageAccounts')
+@login_required
 def manage_accounts():
     db = get_db()
     admin_id = session.get('userID')
@@ -61,6 +71,7 @@ def manage_accounts():
                           professors=professors)
 
 @admin_bp.route('/edit_student/<student_id>')
+@login_required
 def edit_student(student_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -73,6 +84,7 @@ def edit_student(student_id):
     return render_template("EditStudent.html", student=student)
 
 @admin_bp.route('/update_student/<student_id>', methods=['POST'])
+@login_required
 def update_student(student_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -90,6 +102,7 @@ def update_student(student_id):
                           message=status)
 
 @admin_bp.route('/delete_student/<student_id>', methods=['POST'])
+@login_required
 def delete_student(student_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -105,6 +118,7 @@ def delete_student(student_id):
                           message=status)
 
 @admin_bp.route('/edit_professor/<professor_id>')
+@login_required
 def edit_professor(professor_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -117,6 +131,7 @@ def edit_professor(professor_id):
     return render_template("EditProfessor.html", professor=professor)
 
 @admin_bp.route('/update_professor/<professor_id>', methods=['POST'])
+@login_required
 def update_professor(professor_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -134,6 +149,7 @@ def update_professor(professor_id):
                           message=status)
 
 @admin_bp.route('/delete_professor/<professor_id>', methods=['POST'])
+@login_required
 def delete_professor(professor_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -149,6 +165,7 @@ def delete_professor(professor_id):
                           message=status)
 
 @admin_bp.route('/ManageCourses')
+@login_required
 def manage_courses():
     db = get_db()
     admin_id = session.get('userID')
@@ -158,6 +175,7 @@ def manage_courses():
     return render_template("ManageCourses.html", courses=courses)
 
 @admin_bp.route('/assign_professor/<course_id>')
+@login_required
 def assign_professor(course_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -173,6 +191,7 @@ def assign_professor(course_id):
                           professors=professors)
 
 @admin_bp.route('/update_course_professor/<course_id>', methods=['POST'])
+@login_required
 def update_course_professor(course_id):
     db = get_db()
     admin_id = session.get('userID')
@@ -192,13 +211,14 @@ def update_course_professor(course_id):
 
 
 @admin_bp.route("/AddCourse", methods=["POST"])
+@login_required
 def addCourse():
     c_id = request.form["course_id"]
     cname = request.form["course_name"]
     capacity = request.form["capacity"]
     semester = request.form["semester"]
     credits = request.form["credits"]
-    professor_id = request.form["professor_id"]
+    professor_id = request.form.get("professor_id", "").strip() or None
 
     db = get_db()
     admin_id = session.get('userID')
@@ -212,6 +232,7 @@ def addCourse():
 
 
 @admin_bp.route("/RemoveCourse", methods=["POST"])
+@login_required
 def removeCourse():
     c_id = request.form["course_id"]
 

@@ -1,11 +1,20 @@
-from flask import Flask, render_template, session, request, flash, redirect, Blueprint
+from flask import Flask, render_template, session, request, flash, redirect, Blueprint, abort, current_app
 from flask_login import login_required, current_user
+from markupsafe import escape
 from srs.models.student import Student
 from srs.repositories.studentRepo import studentRepo
 from srs.db import get_db
 import sqlite3
 
 student_bp = Blueprint('student', __name__)
+
+@student_bp.before_request
+@login_required
+def require_student():
+    if current_app.config.get("LOGIN_DISABLED"):
+        return
+    if not isinstance(current_user, Student):
+        abort(403)
 
 @student_bp.route('/view_grades')
 @login_required
@@ -46,7 +55,7 @@ def register_course():
     try:
         studentRepo(db, student_id).RegisterCourse(course_id)
         return f"""
-            <p>You have registered for course: {course_id}</p>
+            <p>You have registered for course: {escape(course_id)}</p>
             <a href='/StudentHome'>Click here to go back to Student Home</a>
         """
     except sqlite3.IntegrityError:
@@ -57,7 +66,7 @@ def register_course():
     except Exception as e:
         return f"""
             <h1>Error</h1>
-            <p>{str(e)}</p>
+            <p>{escape(str(e))}</p>
             <a href='/StudentHome'>Click here to go back</a>
         """
 
@@ -74,13 +83,13 @@ def drop_course():
         try:
             studentRepo(db, student_id).DropCourse(course_id)
             return f"""
-                <p>You have dropped course: {course_id}</p>
+                <p>You have dropped course: {escape(course_id)}</p>
                 <a href='/StudentHome'>Click here to go back to Student Home</a>
             """
         except Exception as e:
             return f"""
                 <h1>Error</h1>
-                <p>{str(e)}</p>
+                <p>{escape(str(e))}</p>
                 <a href='/StudentHome'>Click here to go back</a>
             """
     else:

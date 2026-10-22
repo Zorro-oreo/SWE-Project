@@ -49,44 +49,55 @@ class adminRepo:
     def update_student(self, student_id, name, password=None):
         try:
             if password:
-                self.db.execute("UPDATE Student SET sname = ?, pass = ? WHERE stID = ?", (name, password, student_id))
+                cursor = self.db.execute("UPDATE Student SET sname = ?, pass = ? WHERE stID = ?", (name, password, student_id))
             else:
-                self.db.execute("UPDATE Student SET sname = ? WHERE stID = ?", (name, student_id))
+                cursor = self.db.execute("UPDATE Student SET sname = ? WHERE stID = ?", (name, student_id))
             self.db.commit()
-            return f"""Successfully updated student {student_id}"""
+
+            if(cursor.rowcount == 0):
+                return f"Error: Student {student_id} not found!"
+            
+            return f"Successfully updated student {student_id}"
         except Exception as e:
-            return f"""Error: {e}"""
+            return f"Error: {e}"
     
     def update_professor(self, professor_id, name, password=None):
         try:
             if password:
-                self.db.execute("UPDATE Professor SET pname = ?, pass = ? WHERE pID = ?", (name, password, professor_id))
+                cursor = self.db.execute("UPDATE Professor SET pname = ?, pass = ? WHERE pID = ?", (name, password, professor_id))
             else:
-                self.db.execute("UPDATE Professor SET pname = ? WHERE pID = ?", (name, professor_id))
+                cursor = self.db.execute("UPDATE Professor SET pname = ? WHERE pID = ?", (name, professor_id))
             self.db.commit()
-            return f"""Successfully updated professor {professor_id}"""
+
+            if(cursor.rowcount == 0):
+                return f"Error: Professor {professor_id} not found!"
+            return f"Successfully updated professor {professor_id}"
         except Exception as e:
-            return f"""Error: {e}"""
+            return f"Error: {e}"
     
     def delete_student(self, student_id):
         try:
-            self.db.execute("DELETE FROM Student WHERE stID = ?", (student_id,))
+            cursor = self.db.execute("DELETE FROM Student WHERE stID = ?", (student_id,))
             self.db.commit()
+            if(cursor.rowcount == 0):
+                return f"Error: Student {student_id} not found!"
             return f"""Successfully deleted student {student_id}"""
         except Exception as e:
             return f"""Error: {e}"""
     
     def delete_professor(self, professor_id):
         try:
-            self.db.execute("DELETE FROM Professor WHERE pID = ?", (professor_id,))
+            cursor = self.db.execute("DELETE FROM Professor WHERE pID = ?", (professor_id,))
             self.db.commit()
+            if(cursor.rowcount == 0):
+                return f"Error: Professor {professor_id} not found!"
             return f"""Successfully deleted professor {professor_id}"""
         except Exception as e:
             return f"""Error: {e}"""
 
     def get_all_courses(self):
         return self.db.execute("""
-            SELECT c.cID, c.cname, c.PrID, p.pname 
+            SELECT c.cID, c.cname, c.capacity, c.semester, c.credits, c.PrID, p.pname
             FROM Course c 
             LEFT JOIN Professor p ON c.PrID = p.pID
         """).fetchall()
@@ -115,6 +126,11 @@ class adminRepo:
     
     def add_course(self, c_id, cname, capacity, semester, credits, professor_id):
         try:
+            if professor_id is not None:
+                prof = self.db.execute("SELECT pID FROM Professor WHERE pID = ?", (professor_id,)).fetchone()
+                if not prof:
+                    return f"Error: Professor {professor_id} not found"
+                
             self.db.execute(
                 "INSERT INTO Course (cID, cname, capacity, semester, credits, PrID) VALUES (?, ?, ?, ?, ?, ?)",
                 (c_id, cname, capacity, semester, credits, professor_id),

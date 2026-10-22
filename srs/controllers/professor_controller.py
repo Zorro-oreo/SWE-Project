@@ -1,10 +1,19 @@
-from flask import Blueprint, render_template, session, request
+from flask import Blueprint, render_template, session, request, abort, current_app
 from flask_login import login_required, current_user
+from markupsafe import escape
 from srs.models.professor import Professor
 from srs.repositories.professorRepo import professorRepo
 from srs.db import get_db
 
 professor_bp = Blueprint("professor", __name__, url_prefix="/professor")
+
+@professor_bp.before_request
+@login_required
+def require_prof():
+    if current_app.config.get("LOGIN_DISABLED"):
+        return
+    if not isinstance(current_user, Professor):
+        abort(403)
 
 @professor_bp.route("/courses/<c_id>/students")
 @login_required
@@ -35,7 +44,7 @@ def assign_grade():
     repo = professorRepo(db, professor_id)
     result = repo.assign_grade(student_id, course_id, grade)
 
-    return result
+    return escape(result)
 
 @professor_bp.route("/ProfessorHome")
 @login_required
@@ -56,4 +65,4 @@ def remove_student(student_id, course_id):
     repo = professorRepo(db, professor_id)
     result = repo.RemoveStudent(student_id, course_id)
     
-    return result
+    return escape(result)

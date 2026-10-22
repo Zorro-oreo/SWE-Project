@@ -22,13 +22,26 @@ class professorRepo:
     
     def assign_grade(self, student_id, course_id, grade):
 
-        self.db.execute('''
+        course = self.db.execute(
+            "SELECT PrID FROM Course WHERE cID = ?", (course_id,)
+        ).fetchone()
+
+        if course is None:
+            return f"Error: course {course_id} does not exist"
+
+        if course["PrID"] != self.pID:
+            return f"Error: you are not the instructor of {course_id}"
+
+        cursor = self.db.execute('''
             UPDATE Registered_In 
             SET grade = ? 
             WHERE stuID = ? AND coID = ?
         ''', (grade, student_id, course_id))
         
         self.db.commit()
+
+        if cursor.rowcount == 0:
+            return f"Error: student {student_id} is not registered in {course_id}"
         
         return f"Grade {grade} has been assigned to student {student_id} for course {course_id}"
     
@@ -46,12 +59,23 @@ class professorRepo:
         return courses
     
     def RemoveStudent(self, student_id, course_id):
-        self.db.execute('''
+
+        course = self.db.execute(
+            "SELECT PrID FROM Course WHERE cID = ?", (course_id,)
+        ).fetchone()
+
+        if course is None or course["PrID"] != self.pID:
+            return f"Error: you are not the instructor of {course_id}"
+
+        cursor = self.db.execute('''
             DELETE FROM Registered_In 
-            WHERE stuID = ? AND coID = ?
-        ''', (student_id, course_id))
-        
+            WHERE stuID = ? AND coID = ?''', (student_id, course_id))
+
         self.db.commit()
-        
+
+        if cursor.rowcount == 0:
+            return f"Error: student {student_id} is not registered in {course_id}"
+            
         return f"Student {student_id} has been removed from course {course_id}"
+        
     

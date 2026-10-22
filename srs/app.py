@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, abort
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from datetime import timedelta
 from srs.config import DATABASE_PATH
@@ -19,10 +19,10 @@ from srs.db import get_db, close_db
 
 def init_db():
     db = get_db()
-    with app.open_resource("database\\schema.sql", mode="r") as f:
+    with app.open_resource("database/schema.sql", mode="r") as f:
         db.executescript(f.read())
 
-    with app.open_resource("database\\data.sql", mode="r") as f:
+    with app.open_resource("database/data.sql", mode="r") as f:
         db.executescript(f.read())
     
     db.commit()
@@ -64,7 +64,10 @@ app.teardown_appcontext(close_db)
 
 
 @app.route("/init")
+@login_required
 def init():
+    if not isinstance(current_user, Admin):
+        abort(403)
     init_db()
     return "DB initialized."
 
@@ -114,9 +117,10 @@ def professorlogin():
     return render_template("ProfessorLogin.html")
 
 @app.route("/StudentHome")
+@login_required
 def sHome():
-    if not current_user.is_authenticated:
-        return redirect("/")
+    if not isinstance(current_user, Student):
+        abort(403)
     return render_template("StudentHome.html", username = current_user.sname)
 
 @app.route("/Plogin", methods=["POST"])
@@ -140,9 +144,10 @@ def professor_login():
         return "Credentials incorrect."
 
 @app.route("/ProfessorHome")
+@login_required
 def pHome():
-    if not current_user.is_authenticated:
-        return redirect("/")
+    if not isinstance(current_user, Professor):
+        abort(403)
     
     db = get_db()
     courses = professorRepo(db, current_user.pID).get_courses()
@@ -174,9 +179,10 @@ def admin_login():
         return "Credentials incorrect."
     
 @app.route("/AdminHome")
+@login_required
 def ahome():
-    if not current_user.is_authenticated:
-        return redirect("/")
+    if not isinstance(current_user, Admin):
+        abort(403)
     return render_template("AdminHome.html", username = current_user.username)
 
 if __name__ == "__main__":

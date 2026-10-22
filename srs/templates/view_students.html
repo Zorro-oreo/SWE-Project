@@ -23,6 +23,7 @@
                             <th>Student ID</th>
                             <th>Student Name</th>
                             <th>Actions</th>
+                            <th>Grade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,10 +39,8 @@
                             
                                 </div>
                             </td>
-                                {% if student.grade %}
-                                {% else %}
-                                    -
-                                {% endif %}
+                            <td>
+                                {{ student.grade or "-" }}
                             </td>
                         </tr>
                         {% endfor %}

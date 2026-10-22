@@ -16,7 +16,7 @@
             {% for course in grades %}
             <tr>
                 <td>{{ course.course }}</td>
-                <td>{{ course.grade }}</td>
+                <td>{{ course.grade or "Not graded yet" }}</td>
             </tr>
             {% endfor %}
             <tr>
